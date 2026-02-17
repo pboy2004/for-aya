@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For Aya 💛</title>
+  <style>
+    :root{
+      --bg1:#fff7fb;
+      --bg2:#f4fbff;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --accent:#ff4d8d;
+      --accent2:#7c3aed;
+      --shadow: 0 12px 30px rgba(0,0,0,.08);
+      --radius: 22px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100svh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 20% 10%, var(--bg1), transparent),
+                  radial-gradient(1200px 800px at 80% 90%, var(--bg2), transparent),
+                  #ffffff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+    }
+    .wrap{
+      width:min(520px, 100%);
+    }
+    .card{
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .top{
+      padding:18px 18px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+    .badge{
+      font-size:12px;
+      color:var(--muted);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(0,0,0,.08);
+      background:rgba(255,255,255,.7);
+    }
+    .progress{
+      height:8px;
+      background: rgba(0,0,0,.06);
+      border-radius:999px;
+      overflow:hidden;
+      margin:0 18px 14px;
+    }
+    .bar{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius:999px;
+      transition: width .35s ease;
+    }
+    .content{
+      padding: 10px 18px 18px;
+    }
+    h1{
+      margin: 6px 0 6px;
+      font-size: 26px;
+      line-height:1.2;
+      letter-spacing:-.2px;
+    }
+    p{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height:1.55;
+    }
+    .stepBox{
+      background: rgba(255,77,141,.08);
+      border: 1px solid rgba(255,77,141,.18);
+      padding: 14px;
+      border-radius: 16px;
+      margin: 10px 0 16px;
+    }
+    .big{
+  font-size:18px;
+  color:var(--text);
+  margin:0;
+  white-space: pre-line;
+  text-align: center;
+}
+
+    .buttons{
+      display:flex;
+      gap:10px;
+      margin-top: 14px;
+    }
+    button{
+      flex:1;
+      border:0;
+      border-radius: 16px;
+      padding: 12px 14px;
+      font-weight: 700;
+      font-size: 15px;
+      cursor:pointer;
+      transition: transform .06s ease, opacity .2s ease;
+    }
+    button:active{ transform: scale(.99); }
+    .btnPrimary{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      color:white;
+    }
+    .btnGhost{
+      background: rgba(0,0,0,.05);
+      color: var(--text);
+    }
+    .hidden{ display:none; }
+
+    /* Sticker-style cat container */
+    .stickerWrap{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 8px 0 0;
+    }
+    .sticker{
+      width:min(240px, 70vw);
+      aspect-ratio: 1/1;
+      background:#ffffff;
+      border-radius: 28px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.12);
+      border: 6px solid rgba(255,255,255,.9);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+    }
+    .sticker::after{
+      content:"";
+      position:absolute;
+      inset:-10px;
+      border-radius: 36px;
+      border: 2px dashed rgba(0,0,0,.08);
+      pointer-events:none;
+    }
+    .cat{
+      font-size: 110px; /* big emoji “sticker” */
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.18));
+      transform: rotate(-4deg);
+    }
+    .footerHint{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(107,114,128,.9);
+      text-align:center;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="top">
+        <div class="badge" id="stepBadge">Step 1 of 5</div>
+        <div class="badge">For Aya 💛</div>
+      </div>
+
+      <div class="progress" aria-label="progress">
+        <div class="bar" id="bar"></div>
+      </div>
+
+      <div class="content">
+        <h1 id="title">Hey Aya 🌸</h1>
+        <p id="text">I made you a tiny little journey. Tap “Next” and follow the steps…</p>
+
+        <div class="stepBox" id="box">
+          <p class="big" id="boxText">Ready? First: smile for 2 seconds 😄</p>
+        </div>
+
+        <div class="stickerWrap hidden" id="stickerWrap">
+          <div class="sticker" role="img" aria-label="cat sticker">
+            <div class="cat">🐱</div>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button class="btnGhost" id="backBtn" onclick="prevStep()" disabled>Back</button>
+          <button class="btnPrimary" id="nextBtn" onclick="nextStep()">Next</button>
+        </div>
+
+        <div class="footerHint">Tip: works best on phone. You can screenshot the final sticker 💛</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const steps = [
+      {
+        title: "Hey Aya 🌸",
+        text: "I made you a tiny little journey. Tap “Next” and follow the steps…",
+        box: "Ready? First: smile for 2 seconds 😄"
+      },
+      {
+        title: "Step 2 ✨",
+        text: "Quick mission:",
+        box: "Think of ONE thing that made you happy recently 💭"
+      },
+      {
+        title: "Step 3 💛",
+        text: "Now a tiny promise:",
+        box: "No matter what, you deserve love, softness, and good days."
+      },
+      {
+        title: "Step 4 🎁",
+        text: "Almost there…",
+        box: "Tap Next when you’re ready for your surprise."
+      },
+     {
+  title: "For You Aya 💖",
+  text: "",
+  box: `Huby,
+You are the most beautiful thing that ever happened to me.
+Your smile, your heart, and the way you exist in my life make it better.
+I’m grateful for you today and every day.
+Oualyd
+Happy Birthday, Huby 💖🎂`
+
+}
+
+
+    ];
+
+    let i = 0;
+
+    function render() {
+      const s = steps[i];
+      document.getElementById("title").textContent = s.title;
+      document.getElementById("text").textContent = s.text;
+      document.getElementById("boxText").textContent = s.box;
+
+      const total = steps.length;
+      document.getElementById("stepBadge").textContent = `Step ${i+1} of ${total}`;
+      document.getElementById("bar").style.width = `${((i+1)/total)*100}%`;
+
+      const backBtn = document.getElementById("backBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      backBtn.disabled = (i === 0);
+
+      if (i === total - 1) {
+        nextBtn.textContent = "Restart";
+      } else {
+        nextBtn.textContent = "Next";
+      }
+
+      const stickerWrap = document.getElementById("stickerWrap");
+      stickerWrap.classList.toggle("hidden", !s.showSticker);
+
+    }
+
+    function nextStep() {
+      if (i === steps.length - 1) {
+        i = 0;
+      } else {
+        i++;
+      }
+      render();
+    }
+
+    function prevStep() {
+      if (i > 0) i--;
+      render();
+    }
+
+    render();
+  </script>
+</body>
+</html>
